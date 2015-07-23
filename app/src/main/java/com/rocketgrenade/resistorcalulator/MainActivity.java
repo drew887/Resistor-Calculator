@@ -62,58 +62,21 @@ For Temperature band (the last band if there is more than one band after the gap
 
 public class MainActivity extends ActionBarActivity {
 
-    NumberPicker firstRowPicker;
+    NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        firstRowPicker = (NumberPicker) findViewById(R.id.firstRowPicker);
-        firstRowPicker.setMaxValue(9);
-        firstRowPicker.setMinValue(0);
-        firstRowPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener(){
-            @Override
-            public void onValueChange(NumberPicker picker,int oldval,int newval){
-                int color = Color.BLACK;
-                setColor(firstRowPicker, Color.WHITE);
-                switch (newval){
-                    case 0:
-                        color = Color.BLACK;
-                        break;
-                    case 1:
-                        color = Color.rgb(210,105,30);
-                        break;
-                    case 2:
-                        color = Color.RED;
-                        break;
-                    case 3:
-                        color = Color.rgb(255,165,0);
-                        break;
-                    case 4:
-                        color = Color.YELLOW;
-                        setColor(picker, Color.BLACK);
-                        break;
-                    case 5:
-                        color = Color.GREEN;
-                        setColor(picker, Color.BLACK);
-                        break;
-                    case 6:
-                        color = Color.BLUE;
-                        break;
-                    case 7:
-                        color = Color.rgb(255,100,255);
-                        break;
-                    case 8:
-                        color = Color.GRAY;
-                        break;
-                    case 9:
-                        color = Color.WHITE;
-                        setColor(picker, Color.BLACK);
-                        break;
-                }
-                picker.setBackgroundColor(color);
-            }
-        });
+        firstBandPicker = (NumberPicker) findViewById(R.id.firstBandPicker);
+        firstBandPicker.setMaxValue(9);
+        firstBandPicker.setOnValueChangedListener(colorChangeListener);
+        secondBandPicker = (NumberPicker) findViewById(R.id.secondBandPicker);
+        secondBandPicker.setMaxValue(9);
+        secondBandPicker.setOnValueChangedListener(colorChangeListener);
+        thirdBandPicker = (NumberPicker) findViewById(R.id.thirdBandPicker);
+        thirdBandPicker.setMaxValue(9);
+        thirdBandPicker.setOnValueChangedListener(colorChangeListener);
     }
 
     @Override
@@ -137,6 +100,51 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    NumberPicker.OnValueChangeListener colorChangeListener = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldval, int newval) {
+            int color = Color.BLACK;
+            setColor(picker, Color.WHITE);
+            switch (newval) {
+                case 0:
+                    color = Color.BLACK;
+                    break;
+                case 1:
+                    color = Color.rgb(210, 105, 30);
+                    break;
+                case 2:
+                    color = Color.RED;
+                    break;
+                case 3:
+                    color = Color.rgb(255, 165, 0);
+                    break;
+                case 4:
+                    color = Color.YELLOW;
+                    setColor(picker, Color.BLACK);
+                    break;
+                case 5:
+                    color = Color.GREEN;
+                    setColor(picker, Color.BLACK);
+                    break;
+                case 6:
+                    color = Color.BLUE;
+                    break;
+                case 7:
+                    color = Color.rgb(255, 100, 255);
+                    break;
+                case 8:
+                    color = Color.GRAY;
+                    break;
+                case 9:
+                    color = Color.WHITE;
+                    setColor(picker, Color.BLACK);
+                    break;
+            }
+            picker.setBackgroundColor(color);
+        }
+    };
+
     protected void setColor(NumberPicker picker, int color){
         /*
          Why in all h*ll would you make something like the Paint a private rather than
