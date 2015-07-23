@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Resistor Calulator</string>
-    <string name="calcValue">0</string>
+    <string name="digitTitle">Digit Bands</string>
     <string name="action_settings">Settings</string>
 </resources>
