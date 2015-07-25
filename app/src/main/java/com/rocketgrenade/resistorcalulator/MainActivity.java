@@ -54,15 +54,15 @@ For Tolerance band (first band after gap) values are in +- plus or minus
  Violet: 0.1%
 
 For Temperature band (the last band if there is more than one band after the gap)
-  Brown: 100ppm
-  Red: 50ppm
-  Orange: 15ppm
-  Yellow: 25ppm
+ Brown: 100ppm
+ Red: 50ppm
+ Orange: 15ppm
+ Yellow: 25ppm
  */
 
 public class MainActivity extends ActionBarActivity {
 
-    NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker;
+    NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, tolerBandPicker, tempBandPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +77,10 @@ public class MainActivity extends ActionBarActivity {
         thirdBandPicker = (NumberPicker) findViewById(R.id.thirdBandPicker);
         thirdBandPicker.setMaxValue(9);
         thirdBandPicker.setOnValueChangedListener(colorChangeListener);
+        tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
+        tolerBandPicker.setMaxValue(7);
+        tempBandPicker = (NumberPicker) findViewById(R.id.tempBandPicker);
+        tempBandPicker.setMaxValue(4);
     }
 
     @Override
