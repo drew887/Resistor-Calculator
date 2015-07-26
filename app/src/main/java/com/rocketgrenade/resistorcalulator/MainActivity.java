@@ -78,9 +78,11 @@ public class MainActivity extends ActionBarActivity {
         thirdBandPicker.setMaxValue(9);
         thirdBandPicker.setOnValueChangedListener(colorChangeListener);
         tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
-        tolerBandPicker.setMaxValue(7);
+        tolerBandPicker.setMaxValue(6);
+        tolerBandPicker.setOnValueChangedListener(toleranceChangeListener);
         tempBandPicker = (NumberPicker) findViewById(R.id.tempBandPicker);
-        tempBandPicker.setMaxValue(4);
+        tempBandPicker.setMaxValue(3);
+        tempBandPicker.setOnValueChangedListener(temperatureChangeListener);
     }
 
     @Override
@@ -109,7 +111,6 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onValueChange(NumberPicker picker, int oldval, int newval) {
             int color = Color.BLACK;
-            setColor(picker, Color.WHITE);
             switch (newval) {
                 case 0:
                     color = Color.BLACK;
@@ -125,11 +126,9 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 4:
                     color = Color.YELLOW;
-                    setColor(picker, Color.BLACK);
                     break;
                 case 5:
                     color = Color.GREEN;
-                    setColor(picker, Color.BLACK);
                     break;
                 case 6:
                     color = Color.BLUE;
@@ -142,10 +141,69 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 9:
                     color = Color.WHITE;
-                    setColor(picker, Color.BLACK);
                     break;
             }
             picker.setBackgroundColor(color);
+            setColor(picker, color);
+        }
+    };
+
+    NumberPicker.OnValueChangeListener toleranceChangeListener = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldval, int newval) {
+            int color = Color.BLACK;
+            switch (newval) {
+                case 0:
+                    color = Color.rgb(218,165,32);
+                    break;
+                case 1:
+                    color = Color.rgb(192, 192, 192);
+                    break;
+                case 2:
+                    color = Color.rgb(210, 105, 30);
+                    break;
+                case 3:
+                    color = Color.RED;
+                    break;
+                case 4:
+                    color = Color.GREEN;
+                    break;
+                case 5:
+                    color = Color.BLUE;
+                    break;
+                case 6:
+                    color = Color.rgb(255, 100, 255);
+                    break;
+            }
+            picker.setBackgroundColor(color);
+            setColor(picker, color);
+        }
+    };
+
+    NumberPicker.OnValueChangeListener temperatureChangeListener = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldval, int newval) {
+            int color = Color.BLACK;
+            /* Brown: 100ppm
+             Red: 50ppm
+             Orange: 15ppm
+             Yellow: 25ppm*/
+            switch (newval) {
+                case 0:
+                    color = Color.rgb(210, 105, 30);
+                    break;
+                case 1:
+                    color = Color.RED;
+                    break;
+                case 2:
+                    color = Color.rgb(255, 165, 0);
+                    break;
+                case 3:
+                    color = Color.YELLOW;
+                    break;
+            }
+            picker.setBackgroundColor(color);
+            setColor(picker, color);
         }
     };
 
