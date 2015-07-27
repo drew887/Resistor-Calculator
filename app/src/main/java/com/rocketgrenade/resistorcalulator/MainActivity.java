@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 
 import java.lang.reflect.Field;
 
@@ -63,6 +64,7 @@ For Temperature band (the last band if there is more than one band after the gap
 public class MainActivity extends ActionBarActivity {
 
     NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, tolerBandPicker, tempBandPicker;
+    RadioButton num4, num5, num6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,9 @@ public class MainActivity extends ActionBarActivity {
         tempBandPicker = (NumberPicker) findViewById(R.id.tempBandPicker);
         tempBandPicker.setMaxValue(3);
         tempBandPicker.setOnValueChangedListener(temperatureChangeListener);
+        num4 = (RadioButton) findViewById(R.id.numBand4);
+        num5 = (RadioButton) findViewById(R.id.numBand5);
+        num6 = (RadioButton) findViewById(R.id.numBand6);
     }
 
     @Override
@@ -206,6 +211,23 @@ public class MainActivity extends ActionBarActivity {
             setColor(picker, color);
         }
     };
+
+    public void numBandHandler(View view){
+        switch(view.getId()){
+            case R.id.numBand4:
+                num5.setChecked(false);
+                num6.setChecked(false);
+                break;
+            case R.id.numBand5:
+                num4.setChecked(false);
+                num6.setChecked(false);
+                break;
+            case R.id.numBand6:
+                num4.setChecked(false);
+                num5.setChecked(false);
+                break;
+        }
+    }
 
     protected void setColor(NumberPicker picker, int color){
         /*
