@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
@@ -66,6 +67,7 @@ public class MainActivity extends ActionBarActivity {
 
     NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, multBandPicker, tolerBandPicker, tempBandPicker;
     RadioButton num4, num5, num6;
+    TextView resultText;
     private int numBands;
 
     @Override
@@ -82,8 +84,9 @@ public class MainActivity extends ActionBarActivity {
         thirdBandPicker.setMaxValue(9);
         thirdBandPicker.setOnValueChangedListener(colorChangeListener);
         multBandPicker = (NumberPicker) findViewById(R.id.multBandPicker);
-        multBandPicker.setMaxValue(9);
-        multBandPicker.setOnValueChangedListener(colorChangeListener);
+        multBandPicker.setMaxValue(7);
+        //multBandPicker.setMinValue(-2);
+        multBandPicker.setOnValueChangedListener(multChangeListener);
         tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
         tolerBandPicker.setMaxValue(6);
         tolerBandPicker.setOnValueChangedListener(toleranceChangeListener);
@@ -99,6 +102,9 @@ public class MainActivity extends ActionBarActivity {
         num4 = (RadioButton) findViewById(R.id.numBand4);
         num5 = (RadioButton) findViewById(R.id.numBand5);
         num6 = (RadioButton) findViewById(R.id.numBand6);
+
+        resultText = (TextView) findViewById(R.id.resultText);
+
         numBands = 4;
     }
 
@@ -128,9 +134,11 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onValueChange(NumberPicker picker, int oldval, int newval) {
             int color = Color.BLACK;
+            setColor(picker, color);
             switch (newval) {
                 case 0:
                     color = Color.BLACK;
+                    setColor(picker, Color.WHITE);
                     break;
                 case 1:
                     color = Color.rgb(210, 105, 30);
@@ -146,12 +154,15 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 5:
                     color = Color.GREEN;
+                    setColor(picker, Color.WHITE);
                     break;
                 case 6:
                     color = Color.BLUE;
+                    setColor(picker, Color.WHITE);
                     break;
                 case 7:
                     color = Color.rgb(255, 100, 255);
+                    //setColor(picker, Color.WHITE);
                     break;
                 case 8:
                     color = Color.GRAY;
@@ -161,7 +172,49 @@ public class MainActivity extends ActionBarActivity {
                     break;
             }
             picker.setBackgroundColor(color);
+            doCalc();
+        }
+    };
+
+    NumberPicker.OnValueChangeListener multChangeListener = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldval, int newval) {
+            int color = Color.BLACK;
+            switch (newval) {
+                case 0:
+                    color = Color.rgb(192, 192, 192);
+                    break;
+                case 1:
+                    color = Color.rgb(218,165,32);
+                    break;
+                case 2:
+                    color = Color.BLACK;
+                    break;
+                case 3:
+                    color = Color.rgb(210, 105, 30);
+                    break;
+                case 4:
+                    color = Color.RED;
+                    break;
+                case 5:
+                    color = Color.rgb(255, 165, 0);
+                    break;
+                case 6:
+                    color = Color.YELLOW;
+                    break;
+                case 7:
+                    color = Color.GREEN;
+                    break;
+                case 8:
+                    color = Color.BLUE;
+                    break;
+                case 9:
+                    color = Color.rgb(255, 100, 255);
+                    break;
+            }
+            picker.setBackgroundColor(color);
             setColor(picker, color);
+            doCalc();
         }
     };
 
@@ -194,6 +247,7 @@ public class MainActivity extends ActionBarActivity {
             }
             picker.setBackgroundColor(color);
             setColor(picker, color);
+            doCalc();
         }
     };
 
@@ -221,6 +275,7 @@ public class MainActivity extends ActionBarActivity {
             }
             picker.setBackgroundColor(color);
             setColor(picker, color);
+            doCalc();
         }
     };
 
@@ -255,6 +310,28 @@ public class MainActivity extends ActionBarActivity {
                 tempBandPicker.setEnabled(true);
                 break;
         }
+        doCalc();
+    }
+
+    private void doCalc(){
+        int band1, band2, band3, band4, band5, band6;
+        double total = 0;
+        band1 = firstBandPicker.getValue();
+        band2 = secondBandPicker.getValue();
+        band3 = thirdBandPicker.getValue();
+        band4 = multBandPicker.getValue();
+        band5 = tolerBandPicker.getValue();
+        band6 = tempBandPicker.getValue();
+        switch(numBands){
+            case 4:
+                total = ((band1*10)+(band2))*(Math.pow(10, band4-2));
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+        }
+        resultText.setText(String.format("%.2g",total)+" ohms");
     }
 
     protected void setColor(NumberPicker picker, int color){
