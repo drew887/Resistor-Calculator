@@ -344,10 +344,29 @@ public class MainActivity extends ActionBarActivity {
         return result;
     }
 
+    private String getTemp(){
+        String result = "";
+        switch(tempBandPicker.getValue()){
+            case 0:
+                result = " 100ppm";
+                break;
+            case 1:
+                result = " 50ppm";
+                break;
+            case 2:
+                result = " 15ppm";
+                break;
+            case 3:
+                result = " 25ppm";
+                break;
+        }
+        return result;
+    }
+
     private void doCalc(){
         int band1, band2, band3, multBand, band5, band6;
         double total = 0;
-        String temp;
+        String result = "";
         band1 = firstBandPicker.getValue();
         band2 = secondBandPicker.getValue();
         band3 = thirdBandPicker.getValue();
@@ -360,12 +379,14 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 5:
                 total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
+                result = getTolerance();
                 break;
             case 6:
                 total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
+                result = getTolerance()+getTemp();
                 break;
         }
-        resultText.setText(String.format("%.3g",total)+" ohms"+getTolerance());
+        resultText.setText(String.format("%.3g",total)+" ohms"+result);
     }
 
     protected void setColor(NumberPicker picker, int color){
