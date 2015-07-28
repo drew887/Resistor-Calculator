@@ -16,20 +16,21 @@ import java.lang.reflect.Field;
 
 
 /*
-       Temperature Band
-             |
-    Tolerance band
-           | |
+         Temperature Band
+               |
+      Tolerance band
+             | |
    ------------
---- | | |  | | ---
+--- | | | |  | | ---
    ------------
-    | | |
+    | | | |
 First band
-      | |
-Second band
-        |
-Third band or multiplier band depending on type of resistor
-
+      | | |
+  Second band
+        | |
+    Third band or multiplier band depending on type of resistor
+          |
+      multiplier band, always last one before gap
 RESISTOR VALUES:
 
 For digit bands (the first 2-3 bands before a gap depending on the type of resistor:
@@ -63,8 +64,9 @@ For Temperature band (the last band if there is more than one band after the gap
 
 public class MainActivity extends ActionBarActivity {
 
-    NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, tolerBandPicker, tempBandPicker;
+    NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, multBandPicker, tolerBandPicker, tempBandPicker;
     RadioButton num4, num5, num6;
+    private int numBands;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +81,25 @@ public class MainActivity extends ActionBarActivity {
         thirdBandPicker = (NumberPicker) findViewById(R.id.thirdBandPicker);
         thirdBandPicker.setMaxValue(9);
         thirdBandPicker.setOnValueChangedListener(colorChangeListener);
+        multBandPicker = (NumberPicker) findViewById(R.id.multBandPicker);
+        multBandPicker.setMaxValue(9);
+        multBandPicker.setOnValueChangedListener(colorChangeListener);
         tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
         tolerBandPicker.setMaxValue(6);
         tolerBandPicker.setOnValueChangedListener(toleranceChangeListener);
         tempBandPicker = (NumberPicker) findViewById(R.id.tempBandPicker);
         tempBandPicker.setMaxValue(3);
         tempBandPicker.setOnValueChangedListener(temperatureChangeListener);
+
+        thirdBandPicker.setEnabled(false);
+        tempBandPicker.setEnabled(false);
+        thirdBandPicker.setBackgroundColor(Color.rgb(220, 220, 220));
+        tempBandPicker.setBackgroundColor(Color.rgb(220, 220, 220));
+
         num4 = (RadioButton) findViewById(R.id.numBand4);
         num5 = (RadioButton) findViewById(R.id.numBand5);
         num6 = (RadioButton) findViewById(R.id.numBand6);
+        numBands = 4;
     }
 
     @Override
@@ -213,18 +225,34 @@ public class MainActivity extends ActionBarActivity {
     };
 
     public void numBandHandler(View view){
+        int disabledColor = Color.rgb(220,220,220);
         switch(view.getId()){
             case R.id.numBand4:
                 num5.setChecked(false);
                 num6.setChecked(false);
+                numBands = 4;
+                thirdBandPicker.setEnabled(false);
+                tempBandPicker.setEnabled(false);
+                thirdBandPicker.setValue(0);
+                thirdBandPicker.setBackgroundColor(disabledColor);
+                tempBandPicker.setValue(0);
+                tempBandPicker.setBackgroundColor(disabledColor);
                 break;
             case R.id.numBand5:
                 num4.setChecked(false);
                 num6.setChecked(false);
+                numBands = 5;
+                thirdBandPicker.setEnabled(true);
+                tempBandPicker.setEnabled(false);
+                tempBandPicker.setValue(0);
+                tempBandPicker.setBackgroundColor(disabledColor);
                 break;
             case R.id.numBand6:
                 num4.setChecked(false);
                 num5.setChecked(false);
+                numBands = 6;
+                thirdBandPicker.setEnabled(true);
+                tempBandPicker.setEnabled(true);
                 break;
         }
     }
