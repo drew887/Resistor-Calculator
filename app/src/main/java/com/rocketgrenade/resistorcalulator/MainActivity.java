@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -77,18 +78,27 @@ public class MainActivity extends ActionBarActivity {
         firstBandPicker = (NumberPicker) findViewById(R.id.firstBandPicker);
         firstBandPicker.setMaxValue(9);
         firstBandPicker.setOnValueChangedListener(colorChangeListener);
+
         secondBandPicker = (NumberPicker) findViewById(R.id.secondBandPicker);
         secondBandPicker.setMaxValue(9);
         secondBandPicker.setOnValueChangedListener(colorChangeListener);
+
         thirdBandPicker = (NumberPicker) findViewById(R.id.thirdBandPicker);
         thirdBandPicker.setMaxValue(9);
         thirdBandPicker.setOnValueChangedListener(colorChangeListener);
+
         multBandPicker = (NumberPicker) findViewById(R.id.multBandPicker);
         multBandPicker.setMaxValue(9);
         multBandPicker.setOnValueChangedListener(multChangeListener);
+        multBandPicker.setBackgroundColor(Color.BLACK);
+
         tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
         tolerBandPicker.setMaxValue(7);
         tolerBandPicker.setOnValueChangedListener(toleranceChangeListener);
+        setColor(tolerBandPicker, Color.rgb(218, 165, 32));
+        tolerBandPicker.setBackgroundColor(Color.rgb(218, 165, 32));
+
+
         tempBandPicker = (NumberPicker) findViewById(R.id.tempBandPicker);
         tempBandPicker.setMaxValue(3);
         tempBandPicker.setOnValueChangedListener(temperatureChangeListener);
@@ -103,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
         num6 = (RadioButton) findViewById(R.id.numBand6);
 
         resultText = (TextView) findViewById(R.id.resultText);
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         numBands = 4;
     }
 
@@ -112,6 +122,7 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
@@ -335,7 +346,7 @@ public class MainActivity extends ActionBarActivity {
                 result = " 0.25%";
                 break;
             case 6:
-                result = " 0.10%";
+                result = " 0.1%";
                 break;
             case 7:
                 result = " 0.05%";
@@ -364,15 +375,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void doCalc(){
-        int band1, band2, band3, multBand, band5, band6;
+        int band1, band2, band3, multBand;
         double total = 0;
         String result = getTolerance();
         band1 = firstBandPicker.getValue();
         band2 = secondBandPicker.getValue();
         band3 = thirdBandPicker.getValue();
         multBand = multBandPicker.getValue();
-        band5 = tolerBandPicker.getValue();
-        band6 = tempBandPicker.getValue();
         switch(numBands){
             case 4:
                 total = ((band1*10)+(band2))*(Math.pow(10, multBand-2));
