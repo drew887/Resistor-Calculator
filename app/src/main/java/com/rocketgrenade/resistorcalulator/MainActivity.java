@@ -366,7 +366,7 @@ public class MainActivity extends ActionBarActivity {
     private void doCalc(){
         int band1, band2, band3, multBand, band5, band6;
         double total = 0;
-        String result = "";
+        String result = getTolerance();
         band1 = firstBandPicker.getValue();
         band2 = secondBandPicker.getValue();
         band3 = thirdBandPicker.getValue();
@@ -379,11 +379,10 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 5:
                 total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
-                result = getTolerance();
                 break;
             case 6:
                 total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
-                result = getTolerance()+getTemp();
+                result+=getTemp();
                 break;
         }
         resultText.setText(String.format("%.3g",total)+" ohms"+result);
