@@ -84,8 +84,7 @@ public class MainActivity extends ActionBarActivity {
         thirdBandPicker.setMaxValue(9);
         thirdBandPicker.setOnValueChangedListener(colorChangeListener);
         multBandPicker = (NumberPicker) findViewById(R.id.multBandPicker);
-        multBandPicker.setMaxValue(7);
-        //multBandPicker.setMinValue(-2);
+        multBandPicker.setMaxValue(9);
         multBandPicker.setOnValueChangedListener(multChangeListener);
         tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
         tolerBandPicker.setMaxValue(6);
@@ -162,7 +161,6 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 7:
                     color = Color.rgb(255, 100, 255);
-                    //setColor(picker, Color.WHITE);
                     break;
                 case 8:
                     color = Color.GRAY;
@@ -314,24 +312,26 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void doCalc(){
-        int band1, band2, band3, band4, band5, band6;
+        int band1, band2, band3, multBand, band5, band6;
         double total = 0;
         band1 = firstBandPicker.getValue();
         band2 = secondBandPicker.getValue();
         band3 = thirdBandPicker.getValue();
-        band4 = multBandPicker.getValue();
+        multBand = multBandPicker.getValue();
         band5 = tolerBandPicker.getValue();
         band6 = tempBandPicker.getValue();
         switch(numBands){
             case 4:
-                total = ((band1*10)+(band2))*(Math.pow(10, band4-2));
+                total = ((band1*10)+(band2))*(Math.pow(10, multBand-2));
                 break;
             case 5:
+                total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
                 break;
             case 6:
+                total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
                 break;
         }
-        resultText.setText(String.format("%.2g",total)+" ohms");
+        resultText.setText(String.format("%.3g",total)+" ohms");
     }
 
     protected void setColor(NumberPicker picker, int color){
