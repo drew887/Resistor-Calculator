@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
         multBandPicker.setMaxValue(9);
         multBandPicker.setOnValueChangedListener(multChangeListener);
         tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
-        tolerBandPicker.setMaxValue(6);
+        tolerBandPicker.setMaxValue(7);
         tolerBandPicker.setOnValueChangedListener(toleranceChangeListener);
         tempBandPicker = (NumberPicker) findViewById(R.id.tempBandPicker);
         tempBandPicker.setMaxValue(3);
@@ -242,6 +242,8 @@ public class MainActivity extends ActionBarActivity {
                 case 6:
                     color = Color.rgb(255, 100, 255);
                     break;
+                case 7:
+                    color = Color.GRAY;
             }
             picker.setBackgroundColor(color);
             setColor(picker, color);
@@ -311,9 +313,41 @@ public class MainActivity extends ActionBarActivity {
         doCalc();
     }
 
+    private String getTolerance(){
+        String result = "";
+        switch(tolerBandPicker.getValue()){
+            case 0:
+                result = " 5%";
+                break;
+            case 1:
+                result = " 10%";
+                break;
+            case 2:
+                result = " 1%";
+                break;
+            case 3:
+                result = " 2%";
+                break;
+            case 4:
+                result = " 0.5%";
+                break;
+            case 5:
+                result = " 0.25%";
+                break;
+            case 6:
+                result = " 0.10%";
+                break;
+            case 7:
+                result = " 0.05%";
+                break;
+        }
+        return result;
+    }
+
     private void doCalc(){
         int band1, band2, band3, multBand, band5, band6;
         double total = 0;
+        String temp;
         band1 = firstBandPicker.getValue();
         band2 = secondBandPicker.getValue();
         band3 = thirdBandPicker.getValue();
@@ -331,7 +365,7 @@ public class MainActivity extends ActionBarActivity {
                 total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
                 break;
         }
-        resultText.setText(String.format("%.3g",total)+" ohms");
+        resultText.setText(String.format("%.3g",total)+" ohms"+getTolerance());
     }
 
     protected void setColor(NumberPicker picker, int color){
