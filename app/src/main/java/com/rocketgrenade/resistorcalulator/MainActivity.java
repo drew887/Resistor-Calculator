@@ -90,14 +90,14 @@ public class MainActivity extends ActionBarActivity {
         multBandPicker = (NumberPicker) findViewById(R.id.multBandPicker);
         multBandPicker.setMaxValue(9);
         multBandPicker.setOnValueChangedListener(multChangeListener);
-        multBandPicker.setBackgroundColor(Color.BLACK);
+        multBandPicker.setBackgroundColor(Color.rgb(192, 192, 192));
+        setColor(multBandPicker, Color.rgb(192, 192, 192));
 
         tolerBandPicker = (NumberPicker) findViewById(R.id.tolerBandPicker);
         tolerBandPicker.setMaxValue(7);
         tolerBandPicker.setOnValueChangedListener(toleranceChangeListener);
         setColor(tolerBandPicker, Color.rgb(218, 165, 32));
         tolerBandPicker.setBackgroundColor(Color.rgb(218, 165, 32));
-
 
         tempBandPicker = (NumberPicker) findViewById(R.id.tempBandPicker);
         tempBandPicker.setMaxValue(3);
@@ -301,8 +301,10 @@ public class MainActivity extends ActionBarActivity {
                 tempBandPicker.setEnabled(false);
                 thirdBandPicker.setValue(0);
                 thirdBandPicker.setBackgroundColor(disabledColor);
+                setColor(thirdBandPicker, Color.BLACK);
                 tempBandPicker.setValue(0);
                 tempBandPicker.setBackgroundColor(disabledColor);
+                setColor(tempBandPicker, Color.BLACK);
                 break;
             case R.id.numBand5:
                 num4.setChecked(false);
