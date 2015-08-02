@@ -77,6 +77,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         firstBandPicker = (NumberPicker) findViewById(R.id.firstBandPicker);
+        firstBandPicker.setMinValue(1);
         firstBandPicker.setMaxValue(9);
         firstBandPicker.setOnValueChangedListener(colorChangeListener);
 
@@ -382,24 +383,54 @@ public class MainActivity extends ActionBarActivity {
     private void doCalc(){
         int band1, band2, band3, multBand;
         double total = 0;
-        String result = getTolerance();
+        String result = "", tolerance = getTolerance();
         band1 = firstBandPicker.getValue();
         band2 = secondBandPicker.getValue();
         band3 = thirdBandPicker.getValue();
         multBand = multBandPicker.getValue();
+        double power = (Math.pow(10, multBand-2));
         switch(numBands){
             case 4:
-                total = ((band1*10)+(band2))*(Math.pow(10, multBand-2));
+                total = ((band1*10)+(band2));
                 break;
             case 5:
-                total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
+                total = ((band1*100)+(band2*10)+band3);
                 break;
             case 6:
-                total = ((band1*100)+(band2*10)+band3)*(Math.pow(10, multBand-2));
-                result+=getTemp();
+                total = ((band1*100)+(band2*10)+band3);
+                tolerance+=getTemp();
                 break;
         }
-        resultText.setText(String.format("%.3g",total)+" ohms"+result);
+        if(multBand < 4){
+            total*=power;
+            result = String.format("%.3g",total);
+        }else{
+            String modifier = " ";
+            switch (multBand){
+                case 4:
+                    total /= 10;
+                    modifier = "k";
+                case 5:
+                    modifier = "k";
+                    break;
+                case 6:
+                    modifier = "0k";
+                    break;
+                case 7:
+                    total /= 10;
+                    modifier = "m";
+                    break;
+                case 8:
+                    modifier = "m";
+                    break;
+                case 9:
+                    modifier = "0m";
+                    break;
+            }
+            result = String.valueOf((int)total) + modifier;
+        }
+        result += " ohms"+tolerance;
+        resultText.setText(result);
     }
 
     protected void setColor(NumberPicker picker, int color){
