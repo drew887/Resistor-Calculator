@@ -2,5 +2,11 @@
     <string name="app_name">Resistor Calulator</string>
     <string name="digitTitle">Digit Bands</string>
     <string name="toleranceTitle">Tolerance &amp; Temperature</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Explanation</string>
+    <string name="title_activity_explain">Explanation</string>
+    <string name="explain">Resistor values are an easy enough calculation. Resistors are almost
+        always labeled with 4-6 coloured bands; the bands will have a large \'gap\' between them with
+        3-4 bands on one side and 1-2 bands on the other. This gap shows us what the different bands
+        mean.</string>
+
 </resources>

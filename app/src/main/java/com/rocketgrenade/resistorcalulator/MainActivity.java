@@ -1,5 +1,6 @@
 package com.rocketgrenade.resistorcalulator;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -134,6 +135,8 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent explain = new Intent(this, ExplainActivity.class);
+            startActivity(explain);
             return true;
         }
 

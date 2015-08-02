@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ExplainActivity"
+            android:label="@string/title_activity_explain"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rocketgrenade.resistorcalulator.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
