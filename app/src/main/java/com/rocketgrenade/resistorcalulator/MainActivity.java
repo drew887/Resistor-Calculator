@@ -466,10 +466,10 @@ public class MainActivity extends AppCompatActivity {
                     ((Paint)selectorWheelPaintField.get(picker)).setColor(color);
                 }
                 catch(NoSuchFieldException e){
-                    Log.w("setColor", e);
+                    Log.w("setColor:NSFE", e);
                 }
                 catch(IllegalAccessException e){
-                    Log.w("setColor", e);
+                    Log.w("setColor:IAE", e);
                 }
             }
         }
