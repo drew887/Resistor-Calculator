@@ -80,10 +80,13 @@ public class MainActivity extends ActionBarActivity {
         firstBandPicker.setMinValue(1);
         firstBandPicker.setMaxValue(9);
         firstBandPicker.setOnValueChangedListener(colorChangeListener);
+        firstBandPicker.setBackgroundColor(Color.rgb(210, 105, 30));
 
         secondBandPicker = (NumberPicker) findViewById(R.id.secondBandPicker);
         secondBandPicker.setMaxValue(9);
         secondBandPicker.setOnValueChangedListener(colorChangeListener);
+        secondBandPicker.setBackgroundColor(Color.BLACK);
+        setColor(secondBandPicker, Color.WHITE);
 
         thirdBandPicker = (NumberPicker) findViewById(R.id.thirdBandPicker);
         thirdBandPicker.setMaxValue(9);
