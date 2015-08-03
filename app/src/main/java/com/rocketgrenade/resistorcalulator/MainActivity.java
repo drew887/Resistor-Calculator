@@ -269,11 +269,11 @@ public class MainActivity extends ActionBarActivity {
     NumberPicker.OnValueChangeListener temperatureChangeListener = new NumberPicker.OnValueChangeListener() {
         @Override
         public void onValueChange(NumberPicker picker, int oldval, int newval) {
-            int color = Color.BLACK;
-            /* Brown: 100ppm
+            /*Brown: 100ppm
              Red: 50ppm
              Orange: 15ppm
              Yellow: 25ppm*/
+            int color = Color.BLACK;
             switch (newval) {
                 case 0:
                     color = Color.rgb(210, 105, 30);
@@ -380,10 +380,26 @@ public class MainActivity extends ActionBarActivity {
         return result;
     }
 
+    private char determineModifier(double total){
+        total = Math.round(total);
+        char result = ' ';
+        if(total >= 1000.0){
+            result = 'k';
+            if(total >= 1000000.0){
+                result = 'm';
+                if(total >= 1000000000.0){
+                    result = 'b';
+                }
+            }
+        }
+        return result;
+    }
+
     private void doCalc(){
         int band1, band2, band3, multBand;
         double total = 0;
         String result = "", tolerance = getTolerance();
+        char modifier;
         band1 = firstBandPicker.getValue();
         band2 = secondBandPicker.getValue();
         band3 = thirdBandPicker.getValue();
@@ -401,35 +417,22 @@ public class MainActivity extends ActionBarActivity {
                 tolerance+=getTemp();
                 break;
         }
-        if(multBand < 4){
-            total*=power;
-            result = String.format("%.3g",total);
-        }else{
-            String modifier = " ";
-            switch (multBand){
-                case 4:
-                    total /= 10;
-                    modifier = "k";
-                case 5:
-                    modifier = "k";
+        total*=power;
+        modifier = determineModifier(total);
+        if(multBand > 2){
+            switch(modifier){
+                case 'k':
+                    total /= 1000;
                     break;
-                case 6:
-                    modifier = "0k";
+                case 'm':
+                    total /= 1000000;
                     break;
-                case 7:
-                    total /= 10;
-                    modifier = "m";
-                    break;
-                case 8:
-                    modifier = "m";
-                    break;
-                case 9:
-                    modifier = "0m";
+                case 'b':
+                    total /= 1000000000;
                     break;
             }
-            result = String.valueOf((int)total) + modifier;
         }
-        result += " ohms"+tolerance;
+        result +=String.format("%.2f", total)+modifier+" ohms"+tolerance;
         resultText.setText(result);
     }
 
