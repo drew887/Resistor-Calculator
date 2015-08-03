@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,7 +65,7 @@ For Temperature band (the last band if there is more than one band after the gap
  Yellow: 25ppm
  */
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, multBandPicker, tolerBandPicker, tempBandPicker;
     RadioButton num4, num5, num6;
@@ -138,9 +138,15 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_explain) {
             Intent explain = new Intent(this, ExplainActivity.class);
             startActivity(explain);
+            return true;
+        }
+
+        if (id == R.id.action_about) {
+            Intent about = new Intent(this, AboutActivity.class);
+            startActivity(about);
             return true;
         }
 

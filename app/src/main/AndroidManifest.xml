@@ -24,6 +24,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rocketgrenade.resistorcalulator.MainActivity" />
         </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about">
+        </activity>
     </application>
 
 </manifest>
