@@ -34,8 +34,6 @@
         band Gold(5%) meaning that our resistor is a 47ohm resistor with plus or minus 5% tolerance!
     </string>
     <string name="title_activity_about">About</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="about_text">Resistor-Calculator is licensed under the MIT License, and hosted on
         Github here\nhttps://github.com/drew887/Resistor-Calculator
     </string>

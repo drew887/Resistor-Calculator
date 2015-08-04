@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     TextView resultText;
     private int numBands;
 
-    @Override
+    @Override   
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -466,10 +465,10 @@ public class MainActivity extends AppCompatActivity {
                     ((Paint)selectorWheelPaintField.get(picker)).setColor(color);
                 }
                 catch(NoSuchFieldException e){
-                    Log.w("setColor:NSFE", e);
+                    //Log.w("setColor:NSFE", e);
                 }
                 catch(IllegalAccessException e){
-                    Log.w("setColor:IAE", e);
+                    //Log.w("setColor:IAE", e);
                 }
             }
         }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 
 public class ExplainActivity extends AppCompatActivity {
@@ -14,7 +13,6 @@ public class ExplainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explain);
-        ImageView resistorImg = (ImageView) findViewById(R.id.exampleResistorImg);
     }
 
     @Override
