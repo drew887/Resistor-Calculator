@@ -66,9 +66,9 @@ For Temperature band (the last band if there is more than one band after the gap
 
 public class MainActivity extends AppCompatActivity {
 
-    NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, multBandPicker, tolerBandPicker, tempBandPicker;
-    RadioButton num4, num5, num6;
-    TextView resultText;
+    private NumberPicker firstBandPicker, secondBandPicker, thirdBandPicker, multBandPicker, tolerBandPicker, tempBandPicker;
+    private RadioButton num4, num5, num6;
+    private TextView resultText;
     private int numBands;
 
     @Override   
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    NumberPicker.OnValueChangeListener colorChangeListener = new NumberPicker.OnValueChangeListener() {
+    private NumberPicker.OnValueChangeListener colorChangeListener = new NumberPicker.OnValueChangeListener() {
         @Override
         public void onValueChange(NumberPicker picker, int oldval, int newval) {
             int color = Color.BLACK;
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    NumberPicker.OnValueChangeListener multChangeListener = new NumberPicker.OnValueChangeListener() {
+    private NumberPicker.OnValueChangeListener multChangeListener = new NumberPicker.OnValueChangeListener() {
         @Override
         public void onValueChange(NumberPicker picker, int oldval, int newval) {
             int color = Color.BLACK;
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    NumberPicker.OnValueChangeListener toleranceChangeListener = new NumberPicker.OnValueChangeListener() {
+    private NumberPicker.OnValueChangeListener toleranceChangeListener = new NumberPicker.OnValueChangeListener() {
         @Override
         public void onValueChange(NumberPicker picker, int oldval, int newval) {
             int color = Color.BLACK;
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    NumberPicker.OnValueChangeListener temperatureChangeListener = new NumberPicker.OnValueChangeListener() {
+    private NumberPicker.OnValueChangeListener temperatureChangeListener = new NumberPicker.OnValueChangeListener() {
         @Override
         public void onValueChange(NumberPicker picker, int oldval, int newval) {
             /*Brown: 100ppm
@@ -304,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void numBandHandler(View view){
         int disabledColor = Color.rgb(220,220,220);
+        int disabledTextColor = Color.rgb(180,180,180);
         switch(view.getId()){
             case R.id.numBand4:
                 num5.setChecked(false);
@@ -313,26 +314,39 @@ public class MainActivity extends AppCompatActivity {
                 tempBandPicker.setEnabled(false);
                 thirdBandPicker.setValue(0);
                 thirdBandPicker.setBackgroundColor(disabledColor);
-                setColor(thirdBandPicker, Color.BLACK);
+                setColor(thirdBandPicker, disabledTextColor);
                 tempBandPicker.setValue(0);
                 tempBandPicker.setBackgroundColor(disabledColor);
-                setColor(tempBandPicker, Color.BLACK);
+                setColor(tempBandPicker, disabledTextColor);
                 break;
+
             case R.id.numBand5:
                 num4.setChecked(false);
                 num6.setChecked(false);
                 numBands = 5;
-                thirdBandPicker.setEnabled(true);
+                if(!thirdBandPicker.isEnabled()){
+                    thirdBandPicker.setEnabled(true);
+                    thirdBandPicker.setBackgroundColor(Color.BLACK);
+                    setColor(thirdBandPicker, Color.WHITE);
+                }
                 tempBandPicker.setEnabled(false);
                 tempBandPicker.setValue(0);
                 tempBandPicker.setBackgroundColor(disabledColor);
+                setColor(tempBandPicker, disabledTextColor);
                 break;
+
             case R.id.numBand6:
                 num4.setChecked(false);
                 num5.setChecked(false);
                 numBands = 6;
-                thirdBandPicker.setEnabled(true);
+                if(!thirdBandPicker.isEnabled()){
+                    thirdBandPicker.setEnabled(true);
+                    thirdBandPicker.setBackgroundColor(Color.BLACK);
+                    setColor(thirdBandPicker, Color.WHITE);
+                }
                 tempBandPicker.setEnabled(true);
+                tempBandPicker.setBackgroundColor(Color.rgb(210, 105, 30));
+                setColor(tempBandPicker, Color.rgb(210, 105, 30));
                 break;
         }
         doCalc();
@@ -447,7 +461,7 @@ public class MainActivity extends AppCompatActivity {
     protected void setColor(NumberPicker picker, int color){
         /*
          Why in all h*ll would you make something like the Paint a private rather than
-         protected member or not set a method for changing the paint, if it was protected
+         protected member, or not set a method for changing the paint, if it was protected
          that'd make it easy to just extend the class, but whatever now we have to do some really
          nasty hackery to be able to dynamically change the colour of the text; but I guess in
          the long scheme of things this is kind of an edge case as normally you wouldn't do
@@ -463,6 +477,7 @@ public class MainActivity extends AppCompatActivity {
                     Field selectorWheelPaintField = picker.getClass().getDeclaredField("mSelectorWheelPaint");
                     selectorWheelPaintField.setAccessible(true);
                     ((Paint)selectorWheelPaintField.get(picker)).setColor(color);
+                    ((EditText)view).setTextColor(color);
                 }
                 catch(NoSuchFieldException e){
                     //Log.w("setColor:NSFE", e);
