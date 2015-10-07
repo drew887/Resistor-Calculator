@@ -25,13 +25,12 @@
     </string>
     <string name="explain2" formatted="false">
         \tThe first two bands are the Digit bands, the third band would be the multiplier band, and
-        that forth band after the gap, (its hard to see in a picture but in real life the gap size
-        difference is there), is the tolerance band.
+        that forth band after the gap, is the tolerance band.
         \n\n
-        \tSo the first two bands are Yellow(4) and Purple(7), this means our base number is 47.
-        Looking at the third band we see that it is Black(0) which means we multiply our 47 by 10 to
-        the power of 0, which is 1, so our final ohms value is 47. Finally we tack on our tolerance
-        band Gold(5%) meaning that our resistor is a 47ohm resistor with plus or minus 5% tolerance!
+        \tSo the first two bands are Green(5) and Purple(7), this means our base number is 57.
+        Looking at the third band, Black(0) which means we multiply our 57 by 10 to
+        the power of 0, which is 1, so our final ohms value is 57. Finally we tack on our tolerance
+        band Gold(5%) meaning that our resistor is a 57ohm resistor with plus or minus 5% tolerance!
     </string>
     <string name="title_activity_about">About</string>
     <string name="about_text">Resistor-Calculator is licensed under the MIT License, and hosted on

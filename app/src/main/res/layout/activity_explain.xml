@@ -47,7 +47,7 @@
                 android:layout_below="@+id/explainPara1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/resistor_example" />
+                android:src="@drawable/explain" />
 
             <TextView
                 android:layout_width="wrap_content"
